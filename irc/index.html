@@ -179,10 +179,11 @@
 </tbody>
 </table>
 <h2 id="jotbot-controls">JotBot controls</h2>
-<p>You'll find JotBot in the IRC as well as the subreddit. Here, he announces activity on the subreddit, has a variety of (mostly) useful functions for reference purposes, and runs word sprints.</p>
-<p>If you want to give JotBot a parameter that has spaces in it, either include the parameter "in quotes" or use an_underscore. So for example, <code>!define some example</code> would result in JotBot trying to define <code>some</code> and not <code>some example</code>; <code>!define "some example"</code> or <code>!define some_example</code> , on the other hand, would work as expected.</p>
+<p>You'll find JotBot in the IRC as well as the subreddit. Here, he announces activity on the subreddit, has a variety of (mostly) useful functions for reference purposes, and runs <a href="#sprint-commands">word sprints</a>.</p>
+<p>If you want to give JotBot a parameter that has spaces in it, include the parameter "in quotes". So for example, <code>!define some example</code> would result in JotBot trying to define <code>some</code> and not <code>some example</code>; <code>!define "some example"</code>, on the other hand, would work as expected.</p>
 <h3 id="reference-commands">Reference commands</h3>
-<p>Use these as much as you want, but not in a sophomoric fashion (i.e. purposefully trying to get the bot to say naughty things). As is true of most JotBot commands, they work if you private message JotBot as well (e.g. <code>/msg JotBot !trope</code>).</p>
+<p>You can use JotBot as a quick reference if you like. His word lookups are powered by Wordnik's free API and isn't the most accurate thing in the world, but he's good for a fast mid-drafting response.</p>
+<p>Avoid using these commands in a sophomoric fashion (i.e. purposefully trying to get the bot to say or define naughty things).</p>
 <table>
 <thead>
 <tr>
@@ -245,76 +246,147 @@
 </tr>
 </tbody>
 </table>
-<h3 id="word-sprints">Word sprints</h3>
-<p>Originally inspired by <a href="http://www.goodchatting.com/articles/bjguide/">BattleJesus of NaNoWriMo fame</a>, word sprints are a timed writing exercise in which the goal is to draft as quickly as you can.</p>
-<p>To start a sprint, use the command <code>!sprint</code>. By default, this will create a word sprint 30 minutes long that will begin 5 minutes after the command is run. You can optionally specify the length of the sprint (<code>!sprint 15</code> would create a 15-minute sprint, for example) or the length of the sprint and the delay before it begins (<code>!sprint 15 2</code> would make the aforementioned 15-minute sprint start in 2 minutes instead of 5).</p>
-<p>If you've started a sprint, you will automatically become a participant in that sprint. If you or anyone else uses the <code>!status</code> command, JotBot will print a message telling you whether or not the sprint has started and how long it has to go along with a list of users currently participating in the sprint.</p>
-<p>To join a word sprint that someone else has made, type <code>!join</code>. To leave, use <code>!leave</code>.</p>
-<p>To report your wordcount at any time, use the <code>!wc</code> command followed by your wordcount. For example, <code>!wc 42</code> would set your wordcount to 42.</p>
-<p>Handily, setting your wordcount before a sprint begins will not count towards your wordcount during the sprint. In other words, if you have a document with 100 words written, using the command <code>!wc 100</code> before the sprint starts will set your initial wordcount to 100 instead of the default, 0. Then, after the sprint starts, if you set your wordcount to 300, JotBot will automatically subtract your initial wordcount from that (in this case, 100) and report the amount of words you wrote during the sprint (in this case, 200).</p>
-<p>If the sprint has already begun and you want to set your initial wordcount, use the <code>!wc reset</code> command. <code>!wc reset 100</code> will set your initial (pre-sprint) wordcount to 100.</p>
-<p>If you are the owner of a sprint and want to cancel a sprint for any reason, use the <code>!close</code> command. If you are not the owner, the <code>!close</code> command will do nothing. If the current owner loses connection or leaves the channel, ownership passes down to the next available participant. If there are no available participants, JotBot will set a self-destruct timer of one minute to prevent the sprint from going on without anyone in it. The sprint's current owner is always listed in bold when viewing the participant list through the <code>!status</code> command.</p>
-<p>Once the sprint concludes, all participants will have five minutes to finalize their wordcount with the <code>!final</code> command. Once everyone has finalized (or if five minutes has passed), JotBot will announce the winner of the sprint &mdash; the person who wrote the most.</p>
-<p>You can also finalize your wordcount early if you have to leave mid-sprint. JotBot will remember a finalized wordcount even if you leave.</p>
-<p>Sprints are just for fun, something to get you motivated and writing alongside others (or just against the clock). All wordcount reporting is based on the honor system &mdash; no writing needs to be shared. It's a friendly, small, and above all friendly bit of competition where everyone is a winner for having gotten further in their drafts (but especially the winner).</p>
-<p>Here's what an example word sprint might look like.</p>
-<pre><code class="no-highlight">&lt;SomeUser&gt; !sprint
-&lt;JotBot&gt; SomeUser has created a word sprint! This sprint will start in 5 minutes and last for 30 minutes. Type !join to join.
-&lt;SprintFanatic&gt; !join
-&lt;JotBot&gt; SprintFanatic has joined the word sprint in #shutupandwrite.
-&lt;SprintFanatic&gt; !wc 42069
-&lt;JotBot&gt; SprintFanatic's wordcount is 0 (total: 42069).
-
-...
-
-&lt;JotBot&gt; A word sprint in #shutupandwrite is starting! You have 30 minutes to write as much as you can. Use the !wc command to update your wordcount as you go. To leave, type !leave. Participants: SomeUser (0), SprintFanatic (0)
-&lt;SomeUser&gt; !wc 42
-&lt;JotBot&gt; SomeUser's wordcount is 42 (total: 42).
-&lt;SprintFanatic&gt; !wc 42100
-&lt;JotBot&gt; SprintFanatic's wordcount is 31 (total: 42100).
-
-...
-
-&lt;JotBot&gt; The word sprint in #shutupandwrite has ended. You have 5 minutes to finalize your wordcount by typing !final. Participants: SomeUser (42), SprintFanatic (31).
-&lt;SomeUser&gt; !final
-&lt;JotBot&gt; SomeUser's wordcount has been finalized at 42.
-&lt;SprintFanatic&gt; !final 42222
-&lt;JotBot&gt; SprintFanatic's wordcount has been finalized at 153.
-&lt;JotBot&gt; The winner is SprintFanatic with 153 words written!
-</code></pre>
-
-<h3 id="project-storage-alpha">Project storage (alpha)</h3>
-<p>More of an experiment than anything else, JotBot has the capability to store some very basic information about your current writing projects, if you so choose. And by "very basic" I mean "literally just the wordcount right now."</p>
-<p>If you'd like to view the most recently updated project information, use the <code>!projects</code> command. To store or modify your own, you'll need a Snoonet account so that JotBot knows who you are (see <a href="#irc-controls">IRC controls</a> for more information on that).</p>
+<h3 id="wordcount-commands">Wordcount commands</h3>
+<p>Keep us up-to-date with the status of your current project with these handy commands! If you have multiple projects or would like more control over how your project information is stored, see <a href="#project-commands">project commands</a> below.</p>
 <table>
 <thead>
 <tr>
-<th>Command [parameter]</th>
+<th>Command</th>
 <th>What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>!p new "[project name]" [wordcount]</code></td>
-<td>Creates a new project with the name specified by <code>project name</code>. <code>wordcount</code> is optional and defaults to 0 for a new project.</td>
+<td><code>!c</code></td>
+<td>Displays your wordcount.</td>
 </tr>
 <tr>
-<td><code>!p update "[project name]" [wordcount]</code></td>
-<td>Updates the appropriate project's wordcount. <code>project name</code> uses fuzzy string matching, which means you only need to give it <em>part</em> of the name of your project for it to recognize which project you're updating.</td>
+<td><code>!c 42</code></td>
+<td>Sets your wordcount to <code>42</code>.</td>
 </tr>
 <tr>
-<td><code>!p show "[project name]"</code></td>
-<td>Displays the given project's wordcount in the chat. Also uses fuzzy string matching.</td>
+<td><code>!c sneak 42</code></td>
+<td>"Sneakily" sets your wordcount to <code>42</code>. "Snuck" updates are ignored by wordsprints and global chat statistics. Use this when you're setting a count that you've previously written.</td>
 </tr>
 <tr>
-<td><code>!p delete "[project name]"</code></td>
-<td>Deletes a project. Requires the exact name of the project in order to delete for obvious reasons.</td>
+<td><code>!c undo</code></td>
+<td>Undoes your previous wordcount.</td>
+</tr>
+<tr>
+<td><code>!c +42</code></td>
+<td>Adds 42 words to your wordcount.</td>
+</tr>
+<tr>
+<td><code>!c -42</code></td>
+<td>Subtracts 42 words from your wordcount.</td>
+</tr>
+<tr>
+<td><code>!c =42</code></td>
+<td>Alias for <code>!c sneak</code>.</td>
 </tr>
 </tbody>
 </table>
-<p>If you think this is a bit silly and frivolous, it is, and it's essentially the alpha stage of some much more in-depth project tracking stuff. Hold tight! There'll be more later.</p>
+<h3 id="project-commands">Project commands</h3>
+<p>JotBot stores information on all the writing currently going on in the community.</p>
+<p>Use these commands if you're curious what the rest of the chat is working on, or if you'd like to tell us what you're working on yourself. Checking on the status of other users' projects is <em>not</em> considered rude and is actually encouraged! You might find something interesting to read that way.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!p</code></td>
+<td>Displays a list of recently updated projects.</td>
+</tr>
+<tr>
+<td><code>!p user</code></td>
+<td>Displays a list of <code>user</code>'s projects, if they have any.</td>
+</tr>
+<tr>
+<td><code>!p search "Project Title"</code></td>
+<td>Searches all projects in the database for <code>Project Title</code>.</td>
+</tr>
+<tr>
+<td><code>!new "Project Title"</code></td>
+<td>Creates a new project called <code>Project Title.</code></td>
+</tr>
+<tr>
+<td><code>!load "Project Title"</code></td>
+<td>Sets <code>Project Title</code> as your currently active project. All wordcount commands will edit the wordcount of this project.</td>
+</tr>
+<tr>
+<td><code>!show "Project Title"</code></td>
+<td>Displays information about <code>Project Title</code>. If no title is given, uses the currently selected project.</td>
+</tr>
+<tr>
+<td><code>!rename "Old Title" "New Title"</code></td>
+<td>Renames a project called <code>Old Title</code> to <code>New Title</code>. If no <code>Old Title</code> is given, uses the currently selected project.</td>
+</tr>
+<tr>
+<td><code>!info "Project Title" Info here...</code></td>
+<td>Creates or edits <code>Project Title</code>'s description.</td>
+</tr>
+<tr>
+<td><code>!delete "Project Title"</code></td>
+<td>Deletes <code>Project Title</code>. Exact title match is required for deletion.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sprint-commands">Sprint commands</h3>
+<p>Originally inspired by <a href="http://www.goodchatting.com/articles/bjguide/">BattleJesus of NaNoWriMo fame</a>, word sprints are a timed writing exercise in which the goal is to write as quickly as you can.</p>
+<p>Use the <a href="#wordcount-commands">wordcount commands</a> to keep us updated on your progress, and remember to "sneak" updates you don't want included in your sprint wordcount!</p>
+<p>Sprints are run entirely on the honor system. No one is required to share what they've written during a sprint, although of course they are welcome to do so. If you're stuck and not sure what to write, try out the <code>!exercise</code> command.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!status</code></td>
+<td>Shows the status of the current wordsprint, if there is one.</td>
+</tr>
+<tr>
+<td><code>!sprint</code></td>
+<td>Starts a 30-minute wordsprint 5 minutes from now.</td>
+</tr>
+<tr>
+<td><code>!sprint 15</code></td>
+<td>Starts a 15-minute wordsprint 5 minutes from now.</td>
+</tr>
+<tr>
+<td><code>!sprint 15 2</code></td>
+<td>Starts a 15-minute wordsprint 2 minutes from now.</td>
+</tr>
+<tr>
+<td><code>!join</code></td>
+<td>Joins a wordsprint.</td>
+</tr>
+<tr>
+<td><code>!leave</code></td>
+<td>Leaves a wordsprint.</td>
+</tr>
+<tr>
+<td><code>!final</code></td>
+<td>Finalizes your wordcount. A sprint will not end until all participants have finalized their counts.</td>
+</tr>
+<tr>
+<td><code>!start</code></td>
+<td>(Sprint owner only) Starts a wordsprint immediately.</td>
+</tr>
+<tr>
+<td><code>!close</code></td>
+<td>(Sprint owner only) Ends a wordsprint immediately. (No winner will be announced.)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="word-war-weekend">Word War Weekend</h2>
-<p>Every weekend, we do hourly <a href="#word-sprints">timed word sprints</a> in the official community chat. These word sprints take place every hour on the hour and last for 30 minutes apiece, so you'll always know when one is going or when the next one is.</p>
+<p>Every weekend, we do hourly <a href="#sprint-commands">timed word sprints</a> in the official community chat. These word sprints take place every hour on the hour and last for 30 minutes apiece, so you'll always know when one is going or when the next one is.</p>
 <p>While a word sprint is on, all participants draft as quickly as they possibly can, and once it's over, they reveal how much they've written. The "winner" of each sprint is whoever wrote the most words. Then everyone gets a half-hour break before it starts over again!</p>
 <p>Word War Weekend starts at exactly midnight Saturday UTC time and ends at exactly midnight Monday UTC time. For reference, that's a start time of 8pm Friday EST (5pm Friday PST) and an end time of 8pm Sunday EST (5pm Sunday PST).</p>
 <p>Join in sometime next weekend! It's a fun way of keeping yourself motivated to write with a little friendly competition.</p>
