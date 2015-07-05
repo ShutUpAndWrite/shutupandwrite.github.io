@@ -77,7 +77,6 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
                 <li >
                     <a rel="next" href="../reddit/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -120,6 +119,8 @@
             <li><a href="#word-war-weekend">Word War Weekend</a></li>
         
             <li><a href="#irc-clients">IRC Clients</a></li>
+        
+            <li><a href="#moderation">Moderation</a></li>
         
     
     </ul>
@@ -394,10 +395,73 @@
 <p>There are many ways to get into the #shutupandwrite chat. The <a href="http://goo.gl/xHO16r">sidebar link</a> is the quickest way, but by no means the best. Technically, that link takes you to a client that lives in your web browser known as KiwiIRC. However, there are ways to get to IRC without using a browser at all!</p>
 <p>There are a few advantages to this. For one thing, notifications are easier to... well, <em>notice</em> when they're happening outside of your browser. Standalone clients are more customizable and a lot more lightweight than a JavaScript beast chugging away in your browser tab. You can also use them to automatically log yourself into services without having to type your password out every time.</p>
 <p>If you're on Windows or Linux, <a href="https://hexchat.github.io/">HexChat</a> is a great option. <a href="http://colloquy.info/">Colloquy</a> is available for OS X and iOS. <a href="http://www.andchat.net/">AndChat</a> works well for Android phones.</p>
-<p>Whichever client you use, you'll want to connect to Snoonet (<code>irc.snoonet.org</code>) and join the <code>#shutupandwrite</code> channel.</p></div>
+<p>Whichever client you use, you'll want to connect to Snoonet (<code>irc.snoonet.org</code>) and join the <code>#shutupandwrite</code> channel.</p>
+<h2 id="moderation">Moderation</h2>
+<p>For the most part, <code>#shutupandwrite</code> is a self-moderating channel. Folks who have a genuine interest in writing generally stick around and folks who are more interested in complaining or stirring up drama generally get bored and leave.</p>
+<p>Moderators (ops and half-ops) don't have a lot to do. Being present and friendly counts for a lot. But on the off chance something does go wrong (or you just feel like messing with people), this section is here for your reference.</p>
+<h3 id="what-to-do-if-someone-is-causing-a-problem">What to do if someone is causing a problem</h3>
+<p>In this case, <em>problem</em> is defined by doing something very disruptive to the community, like harassing a specific person, spamming, or making everyone in the channel crazy uncomfortable for some reason or other.</p>
+<ol>
+<li>Tell them what they're doing wrong and why it's not a good idea. In 90% of cases, this will solve all your problems. Sometimes folks just don't realize what they're doing!</li>
+<li>If they continue, give them an unambiguous, serious-sounding warning.</li>
+<li>If they still won't stop doing whatever they're doing, give them a warning <code>/kick</code>.</li>
+<li>If you've reached this point, whoever you're dealing with has a case of incurable douchery, and you can ban them without remorse.</li>
+</ol>
+<p>Obviously, if someone's come in with the clear intent of being a huge douche like spamming the channel with rude ASCII things, feel free to skip to the banning part.</p>
+<h3 id="the-moderators-arsenal">The Moderator's Arsenal</h3>
+<p>Optional parameters are given in <code>[brackets]</code>, required parameters are given in <code>&lt;alligators&gt;</code>. Some (usually older) clients may require the optional parameters in order to work.</p>
+<h4 id="channel-kick">Channel kick</h4>
+<p>A virtually worthless power that's more of a polite gesture than anything else. A kick removes the user from the channel, but they are free to instantly rejoin. Great for jokes though.</p>
+<p><strong>Command:</strong> <code>/kick [#channel] &lt;user&gt; [reason]</code></p>
+<h4 id="channel-ban">Channel ban</h4>
+<p>Bans will prevent a user from being able to speak in or rejoin a channel. How they work is a bit tricky, however!</p>
+<p><strong>Command:</strong> <code>/mode [#channel] +b &lt;host string&gt;</code><br />
+<strong>To undo:</strong> <code>/mode [#channel] -b &lt;host string&gt;</code><br />
+<strong>To view current bans:</strong> <code>/mode [#channel] +b</code> or <code>/bans [#channel]</code></p>
+<p>Internally, IRC represents each user as a host string in the following format:</p>
+<p><code>nick!user@host</code></p>
+<p>You can get this information by performing a <code>/whois &lt;user&gt;</code> on someone. The problem with this is that, in most cases, a user can change their <code>nick</code> or <code>user</code> parts of their host string at will, making a full <code>nick!user@host</code> ban worthless. The <code>host</code> part, however, is much more difficult to change and is usually tied to the physical location of the user.</p>
+<p>For that reason, all bans should <em>wildcard</em> the <code>nick</code> and <code>user</code> parts. Any part of a host string with an asterisk (<code>*</code>) will match any set of characters in place of where the asterisk is. So, for example, a ban using <code>*!*@problem.host</code> would match any user whose host is <code>problem.host</code>, regardless of what they've set their <code>user</code> field or <code>nick</code> to. (<code>*!*@*</code>, on the other hand, would ban <em>everyone</em>.)</p>
+<p>In some situations, you will want to ban something more specific, like the <code>user</code> field along with the <code>host</code> field. For example, all the people who use IRCcloud as their bouncer will appear to come from the same host (<code>somename.irccloud.com</code>) but have differing <code>user</code> fields (<code>uid00000</code>). In this situation, banning the host (<code>*!*@somename.irccloud.com</code>) would ban all users of IRCcloud, which you probably don't want to do. Banning the <code>user</code> field <em>and</em> <code>host</code> field, however, will only ban that specific IRCcloud user (<code>*!uid00000@irccloud.com</code>). This is a pretty obscure case though!</p>
+<h4 id="channel-mute">Channel mute</h4>
+<p>Disallows everyone from talking except for ops, halfops, and voiced users.</p>
+<p><strong>Command:</strong> <code>/mode [#channel] +m</code><br />
+<strong>To undo:</strong> <code>/mode [#channel] -m</code></p>
+<h4 id="channel-close">Channel close</h4>
+<p>Sets the channel to "invite-only"; anyone currently in the channel can use the invite command (<code>/invite [#channel] &lt;user&gt;</code>) to bring other users into the channel, but the channel can no longer be freely joined.</p>
+<p>Try to avoid using this mode if at all possible, as it requires people to message others to get invites into the channel and is basically incomprehensible to new users.</p>
+<p><strong>Command:</strong> <code>/mode [#channel] +i</code><br />
+<strong>To undo:</strong> <code>/mode [#channel] -i</code></p>
+<h4 id="grant-voice">Grant voice</h4>
+<p>If the channel is muted, allows a user to talk.</p>
+<p><strong>Command:</strong> <code>/voice [#channel] &lt;user&gt;</code><br />
+<strong>To undo:</strong> <code>/voice [#channel] &lt;user&gt;</code></p>
+<h4 id="make-other-temporary-moderators">Make other temporary moderators</h4>
+<p>In case of extreme zaniness, use the <code>/hop</code> command to temporarily promote someone else to moderator status. This status will remain until the user disconnects, leaves the channel, or uses the <code>/dehop</code> command on themselves.</p>
+<p><strong>Command:</strong> <code>/hop [#channel] user</code><br />
+<strong>To undo:</strong> <code>/dehop [#channel] user</code></p>
+<h4 id="re-op-yourself-or-others">Re-op yourself (or others)</h4>
+<p>If, for whatever reason, you lose your moderator status, you can regain it through <code>ChanServ</code>.</p>
+<p><strong>Command:</strong> <code>/msg ChanServ HOP &lt;#channel&gt; [user]</code> (use <code>OP</code> instead if you're a full channel operator)</p>
+<h4 id="unban-yourself">Unban yourself</h4>
+<p>If, for whatever reason, you've managed to do the unthinkable and ban yourself by mistake, here's how to fix it.</p>
+<p><strong>Command:</strong> <code>/msg ChanServ UNBAN [#channel]</code></p>
+<h3 id="defcon-1-procedure">DEFCON 1 procedure</h3>
+<p>The odds of anyone attacking a writing community are super low, but sometimes people are dumb and there's always the possibility of something going horribly wrong, so here's what to do if the proverbial shit has hit the proverbial fan and douches are flooding into the channel from all directions.</p>
+<ol>
+<li>Mute the channel (<code>/mode [#channel] +m</code>).</li>
+<li>Voice everyone who is supposed to be in the channel. (In some clients, you are able to select everyone at once and voice them with the click of a button! You should probably try doing this first instead of doing it all manually.)</li>
+<li>If necessary, make some others temporary half-ops to deal with the influx of people who will need voice to speak. Permanent moderators cannot be removed by temporary moderators.</li>
+<li>If someone is spamming the channel with joins and parts, set the channel to "auditorium" mode with <code>/mode [#channel] +u</code>. This will hide joins and parts until it is removed.</li>
+</ol>
+<p>By following these steps, whatever nonsense is going on will be completely invisible to the rest of the chat, which can go on happily chattin' until it blows over.</p></div>
         </div>
 
-        
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
 
         <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>

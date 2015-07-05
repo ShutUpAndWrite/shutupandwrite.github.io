@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>http://www.reddit.com/r/shutupandwrite/</loc>
+     <lastmod>2015-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>http://www.reddit.com/r/shutupandwrite/reddit/</loc>
+     <lastmod>2015-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>http://www.reddit.com/r/shutupandwrite/irc/</loc>
+     <lastmod>2015-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>http://www.reddit.com/r/shutupandwrite/teamspeak/</loc>
+     <lastmod>2015-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>
